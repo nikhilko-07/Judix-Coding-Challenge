@@ -1,13 +1,20 @@
 import express from 'express';
 const app = express();
 import mongoose from "mongoose";
+import userRoutes from "./routes/user.routes.js";
+import postRoutes from "./routes/posts.routes.js"
+import cors from "cors";
 
 app.use(express.json());
-const PORT = process.env.PORT || 3000;
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-})
+
+app.use(userRoutes);
+app.use(postRoutes);
+
+
+const PORT = process.env.PORT || 3000;
 
 const db = async ()=>{
     try {

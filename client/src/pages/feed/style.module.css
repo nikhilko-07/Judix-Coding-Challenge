@@ -1,0 +1,19 @@
+.mainContainer{
+    border: 2px solid red;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wrapperDiv{
+    padding: 5rem;
+    width: 80%;
+    border: 2px solid purple;
+    height: 100%;
+}
+.storiesContainer{
+    border: 2px solid green;
+}
+.postContainer{
+    border: 2px solid blue;
+}

@@ -1,0 +1,16 @@
+.mainContainer{
+    display: flex;
+    width: 100%;
+    border: 2px solid blue;
+    background-color: red;
+}
+.sideBar{
+    /*background-color: red;*/
+    border: 3px solid yellow;
+    width: 10%;
+    height: 100%;
+}
+.mainDiv{
+    height: 100%;
+    background-color: greenyellow;
+}

@@ -1,0 +1,11 @@
+.mainContainer{
+    border: 2px solid red;
+    width: 25%;
+    display: grid;
+}
+.advt{
+    border: 2px solid green;
+}
+.userList{
+    border: 2px solid blue;
+}

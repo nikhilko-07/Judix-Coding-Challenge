@@ -173,20 +173,20 @@ export const updateProfileData = async (req, res) => {
         });
     }
 };
-
-export const getUserProfile = async (req, res)=>{
+export const getUserProfileController = async (req, res) => {
     try {
-        const {userId} = req.body;
-        if (!userId) {
-            return res.status(400).json({message: "User not found"});
+        const { _id } = req.query;
+        if (!_id) {
+            return res.status(400).json({ message: "User ID not provided" });
         }
-        const user = await Profile.findOne({userId: userId}).select("-savedPosts -_id");
-        if (!user) {
-            return res.status(404).json({message: "Profile not found"});
-        }
-        return res.status(200).json(user);
-    }catch(err){
-        return res.status(400).json({"something went wrong":err});
-    }
-}
 
+        const user = await Profile.findById(_id).select("-savedPosts");
+        if (!user) {
+            return res.status(404).json({ message: "Profile not found" });
+        }
+
+        res.status(200).json({user });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};

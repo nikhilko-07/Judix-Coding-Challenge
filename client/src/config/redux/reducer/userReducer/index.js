@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-    getOwnProfile,
+    getOwnProfile, getUserProfileAction,
     loginUser,
     profileFetch,
     searchUser, updateProfileData,
@@ -24,7 +24,7 @@ const initialState={
     searchResult:[],
     searchLoading: false,
     ownSavedPosts:{},
-
+    getUserProfileData:null
 }
 const authSlice = createSlice({
     name:"user",
@@ -130,6 +130,22 @@ const authSlice = createSlice({
                     state.isSuccess = true;
                     state.isError = false;
                     state.message = "Data Updated";
+                })
+                .addCase(getUserProfileAction.pending, (state, action)=>{
+                    state.isLoading = true;
+                    state.message = "Knocking the door...";
+                })
+                .addCase(getUserProfileAction.rejected, (state, action)=>{
+                    state.isLoading = false;
+                    state.isError = false;
+                    state.message = "Something broken"
+                })
+                .addCase(getUserProfileAction.fulfilled, (state, action)=>{
+                    state.isLoading = false;
+                    state.isSuccess = true;
+                    state.isError = false;
+                    state.message = "Data Updated";
+                    state.getUserProfileData = action.payload.user;
                 })
         }
 });

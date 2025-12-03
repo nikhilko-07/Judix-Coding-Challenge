@@ -10,7 +10,6 @@ export const loginUser = createAsyncThunk(
                 email: user.email,
                 password: user.password,
             })
-            console.log(user);
             if(response.data.token){
                 localStorage.setItem("token", response.data.token)
             }else{
@@ -147,5 +146,24 @@ export const updateProfileData = createAsyncThunk(
             console.log(error);
             return thunkAPI.rejectWithValue(error.response?.data?.message || "Something went wrong");
         }
+    }
+);
+
+
+
+export const getUserProfileAction = createAsyncThunk(
+    "user/getUserProfile",
+    async (user, thunkAPI) => {
+
+        const raw = localStorage.getItem("token");
+
+        const token = raw ? raw.replace(/['"]+/g, "") : null;
+
+        const response = await clientServer.get("/getUserProfile", {
+            params: { _id: user },
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return response.data;
     }
 );

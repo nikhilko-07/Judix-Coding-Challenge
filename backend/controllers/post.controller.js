@@ -251,7 +251,7 @@ export const getPostInfo = async (req, res) => {
     }
 
     // 1️⃣ Find post
-    const post = await Post.findById(post_id).select("content");
+    const post = await Post.findById(post_id).populate("images content");
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
@@ -289,6 +289,7 @@ export const getPostInfo = async (req, res) => {
 
     // 5️⃣ Return
     return res.status(200).json({
+      postImages:post,
       postId: post._id,
       comments: commentsWithUser,
       totalComments: commentsWithUser.length,
@@ -301,30 +302,20 @@ export const getPostInfo = async (req, res) => {
   }
 }
 
-export const getOwnPostInfo = async (req, res) => {
+export const getPostImages = async (req, res)=>{
   try {
-    const {post_id} = req.query;
-    const post = await Post.findOne({_id: post_id});
-    if (!post) {
-      return res.status(404).json({ message: "Post not found" });
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ message: "Post ID not provided" });
+    const posts = await Post.find({userId}).populate("images");
+    if (!posts) {
+      return res.status(400).json({ message: "Post not Found" });
     }
-    return res.status(200).send({post});
-  }catch (err) {
-    console.error(err);
-    return res.status(400).json({ message: "Something went wrong in getSavedPostInfo" });
-  }
-}
+    return res.status(200).json({
+      totalPosts: posts.length,
+      posts
+    });
 
-export const getSavedPostInfo = async (req, res)=>{
-  try {
-    const {post_id} = req.query;
-    const post = await Post.findOne({_id: post_id});
-    if (!post) {
-      return res.status(404).json({ message: "Post not found" });
-    }
-    return res.status(200).send({post});
   }catch (err){
-    console.error(err);
-    return res.status(400).json({ message: "Post not found" });
+    return res.status(400).json({ message: "Post not found", err });
   }
 }

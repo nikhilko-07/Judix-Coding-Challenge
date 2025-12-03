@@ -1,11 +1,11 @@
 import express from 'express';
 import {
     createPost,
-    deletePost, getOwnPostInfo,
-    getPost,
+    deletePost,
+    getPost, getPostImages,
     getPostInfo,
     getRand,
-    getRandMedia, getSavedPostInfo,
+    getRandMedia,
     Like,
     savedPost
 } from "../controllers/post.controller.js";
@@ -28,7 +28,6 @@ router.route("/createComment").post(verifyUser, createComment);
 router.route("/deleteComment").delete(verifyUser,deleteComment);
 router.route("/savePost").post(verifyUser, savedPost);
 router.route("/postInfo").get(verifyUser, getPostInfo);
-router.route("/getOwnPostInfo").get(verifyUser, getOwnPostInfo);
-router.route("/getSavedPostInfo").get(verifyUser,getSavedPostInfo);
+router.route("/getPostImages").get( getPostImages);
 
 export default router;

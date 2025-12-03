@@ -6,10 +6,8 @@
     getComments,
     createComment,
     deleteComment,
-    savedPost,
-    getPostInfo,
-        getSavedPostInfo
-    } from "@/config/redux/action/postAction";
+    savedPost, getPostInfo, getPostPictures,
+} from "@/config/redux/action/postAction";
     import {createSlice} from "@reduxjs/toolkit";
 
 
@@ -27,6 +25,8 @@
         commentsFetched:false,
         postData:[],
         savedPostData:[],
+        postInfo:{},
+        postPictures:{}
     }
 
     const postSlice = createSlice({
@@ -174,27 +174,24 @@
                 .addCase(getPostInfo.fulfilled, (state, action) => {
                     state.isError = false;
                     state.isLoading = false;
-                    state.message = "Fetched Post Data";
-                    state.postData = action.payload;
+                    state.message = "Done save item";
+                    state.postInfo = action.payload;
                 })
-                .addCase(getSavedPostInfo.pending, (state, action) => {
+                .addCase(getPostPictures.pending, (state, action) => {
                     state.isError = false;
                     state.isLoading = true;
                     state.message = "Knocking the door..."
                 })
-                .addCase(getSavedPostInfo.rejected, (state, action) => {
+                .addCase(getPostPictures.rejected, (state, action) => {
                     state.isLoading = false;
                     state.isError = true;
                     state.message = "Something went wrong..."
                 })
-                .addCase(getSavedPostInfo.fulfilled, (state, action) => {
+                .addCase(getPostPictures.fulfilled, (state, action) => {
                     state.isError = false;
                     state.isLoading = false;
-                    state.message = "Fetched Post Data";
-                    state.savedPostData = [
-                        ...state.savedPostData.filter(p => p._id !== action.payload._id),
-                        action.payload
-                    ];
+                    state.message = "Done save item";
+                    state.postPictures = action.payload.posts;
                 })
         }
     })

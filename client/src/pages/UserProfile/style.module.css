@@ -1,0 +1,85 @@
+.mainContainer{
+    background-color: #EDEDED;
+
+    height: 100%;
+    width: 100%;
+    font-family: "Permanent Marker", cursive;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wrapperDiv{
+    background-color: white;
+    height: 100%;
+    width: 60%;
+    padding: 2rem;
+}
+.UserContainer{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+.userProfileContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.userName{
+    font-size: 2rem;
+    font-weight: bold;
+    color: #383838;
+}
+.followBtn{
+    display: flex;
+    gap: 1rem;
+    font-size: 15px;
+}
+.followBtn button{
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+.userProfilePic{
+    border-radius: 50%;
+    height: 150px;
+    width:  150px;
+    object-fit: cover;
+}
+
+.btnContainer{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.btnContainer button{
+    cursor: pointer;
+    font-family: "Permanent Marker", cursive;
+    height: 35px;
+    width: 10vw;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    background: linear-gradient(to right, #6865FE, #9E32FB);
+}
+.postContainer {
+    display: grid;
+    border-top: 1px solid gray;
+    padding-top: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    justify-items: center;
+    align-items: start;
+    box-sizing: border-box;
+    gap: 1rem;
+    height: 100%;
+}
+.postImage{
+    width:  250px;
+    height: 250px;
+    border-radius: 25px;
+    object-fit: cover;
+}

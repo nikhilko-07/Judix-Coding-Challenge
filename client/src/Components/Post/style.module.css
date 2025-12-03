@@ -62,6 +62,16 @@
     color: white;
   transform: scale(110%);
 }
+.deleteBtn{
+  background-color: transparent;
+  color: red;
+  border: none;
+  transition: 0.3s ease-out, 0.3s ease-out;
+  cursor: pointer;
+}
+.deleteBtn:hover{
+  transform: scale(110%);
+}
 .createContainer {
   padding: 10px;
   display: flex;

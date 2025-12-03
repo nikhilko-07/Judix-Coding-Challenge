@@ -6,7 +6,7 @@ import style from "./style.module.css";
 import JoinedDays from "@/Components/JoinedDate";
 import { Calendar, MapPin } from "lucide-react";
 import { Post } from "@/Components/Post";
-import {getPostInfo, getSavedPostInfo} from "@/config/redux/action/postAction";
+import {getPostInfo} from "@/config/redux/action/postAction";
 
 export default function Profile() {
   const userState = useSelector((state) => state.auth);
@@ -36,14 +36,13 @@ export default function Profile() {
     setBio("");
     setLocation("");
   };
-  useEffect(() => {
-    if (!ownSavedPosts) return;
-    if (Array.isArray(ownSavedPosts)) {
-      ownSavedPosts.forEach(id => dispatch(getSavedPostInfo(id)));
-    }
-  }, [ownSavedPosts]);
+  // useEffect(() => {
+  //   if (!ownSavedPosts) return;
+  //   if (Array.isArray(ownSavedPosts)) {
+  //     ownSavedPosts.forEach(id => dispatch(getSavedPostInfo(id)));
+  //   }
+  // }, [ownSavedPosts]);
 
-  console.log(ownSavedPosts)
   return (
     <ClientLayout>
       <div className={style.mainContainer}>
@@ -141,20 +140,6 @@ export default function Profile() {
             )}
           </div>) : (<div className={style.postContainer}>
 
-            {/*{savedPostData.map((post) => (*/}
-            {/*    post.images?.length > 0 && (*/}
-            {/*        <img*/}
-            {/*            onClick={() => {*/}
-            {/*              setData(post);*/}
-            {/*              setWindow(true);*/}
-            {/*            }}*/}
-            {/*            className={style.postsImage}*/}
-            {/*            key={post._id}*/}
-            {/*            src={post.images[0].path}*/}
-            {/*            alt="saved post"*/}
-            {/*        />*/}
-            {/*    )*/}
-            {/*))}*/}
             {savedPostData.map((post, i) => (
                 <div key={i} style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
                   <h1>{post.content}</h1>

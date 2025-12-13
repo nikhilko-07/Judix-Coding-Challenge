@@ -356,3 +356,19 @@
     border: 1px solid #374151;
     font-size: 0.8rem;
 }
+.closeStory{
+    border-radius: 100%;
+    height: 30px;
+    width:  30px;
+    border: none;
+    margin-bottom: 0.5rem;
+    background-color: white;
+    color: red;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.closeStory:hover {
+    transform: scale(1.3);
+    background-color: red;
+    color: white;
+}

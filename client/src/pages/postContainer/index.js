@@ -19,6 +19,7 @@ import {
   savedPost,
 } from "@/config/redux/action/postAction";
 import { CommentBox } from "@/Components/commentBox";
+import {router} from "next/client";
 
 export const PostContainer = ({ data }) => {
   const dispatch = useDispatch();
@@ -41,8 +42,10 @@ export const PostContainer = ({ data }) => {
           <div key={idx} className={style.postContainer}>
             <div className={style.userContainer}>
               <img
-                className={style.profilePicture}
+                  style={{cursor:"pointer"}}
+                  className={style.profilePicture}
                 src={post.user.profilePicture}
+                onClick={()=> {router.push(`UserProfile/${post?.user?.userId}`)}}
               />
               <p>{post.user.name}</p>
               <p>{post.user.followers.length}&nbsp;followers</p>

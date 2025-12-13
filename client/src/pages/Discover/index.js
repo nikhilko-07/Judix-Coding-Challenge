@@ -43,7 +43,6 @@ export default function Discover() {
     }, 400);
     return () => clearTimeout(delayDebounce);
   }, [query, dispatch]);
-  console.log(searchResult);
   return (
     <ClientLayout>
       <div className={style.wrapperDiv}>
@@ -60,7 +59,6 @@ export default function Discover() {
             ) : searchResult.length > 0 ? (
               searchResult.map((user) => (
                 <div style={{cursor:"pointer"}} onClick={()=> {router.push(`UserProfile/${user.userId}`)}} className={style.usersFetch} key={user._id}>
-                  {console.log(user.userId)}
                   <img
                     src={user.profilePicture}
                     alt={user.username}
@@ -141,7 +139,7 @@ export default function Discover() {
         ) : (
           <div
             style={{
-              width: "60%", // ✅ still 60% width even when empty
+              width: "60%",
               textAlign: "center",
               color: "gray",
               fontSize: "1.2rem",

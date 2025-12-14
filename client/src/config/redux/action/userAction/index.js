@@ -219,3 +219,21 @@ export const getFollowingList = createAsyncThunk(
         }
     }
 )
+
+
+export const getOwnSavedPosts = createAsyncThunk(
+    "user/getOwnSavedPosts",
+    async (_, thunkAPI)=>{
+        try {
+            const raw = localStorage.getItem("token");
+            const token = raw ? raw.replace(/['"]+/g, "") : null;
+            if(!token) return thunkAPI.rejectWithValue("Token not provided...");
+            const response = await clientServer.get("/getOwnSavedPosts",{
+                headers:{Authorization: `Bearer ${token}`},
+            })
+            return thunkAPI.fulfillWithValue(response.data);
+        }catch(err){
+            return thunkAPI.rejectWithValue(err.message);
+        }
+    }
+)

@@ -6,15 +6,18 @@ import {
     getOwnProfile,
     getUserProfileAction
 } from "@/config/redux/action/userAction";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import style from "./style.module.css";
 import JoinedDays from "@/Components/JoinedDate";
 import {Calendar, MapPin} from "lucide-react";
-import {getPostPictures} from "@/config/redux/action/postAction";
+import {getPostInfo, getPostPictures} from "@/config/redux/action/postAction";
 import {router} from "next/client";
+import {Post} from "@/Components/Post";
 
 export default function UserProfile({ _id }) {
     const dispatch = useDispatch();
+    const [data, setData] = useState("");
+    const [window, setWindow] = useState(false);
     const userState = useSelector((state) => state.auth);
     const {getUserProfileData, ownProfileData, getFollowerListData, getFollowingListData} = userState;
     const postState = useSelector((state) => state.posts);
@@ -98,7 +101,11 @@ export default function UserProfile({ _id }) {
                         {postPictures?.length > 0 ? (
                             <div className={style.postContainer}>
                                 {postPictures.map((post, index) => (
-                                    <img className={style.postImage} key={index} src={post?.images?.[0]?.path} />
+                                    <img onClick={() => {
+                                        setData(post);
+                                        setWindow(true);
+                                        dispatch(getPostInfo(post._id))
+                                    }} className={style.postImage} key={index} src={post?.images?.[0]?.path} />
                                 ))}
                             </div>
                         ) : (
@@ -175,6 +182,19 @@ export default function UserProfile({ _id }) {
                                     )) : (<></>)  }
                                 </div>
 
+                            </div>
+                        </div>
+                    )}
+                    {window && (
+                        <div className={style.overlay}>
+                            <div className={style.modal}>
+                                <Post  data={data}  closeModal={() => setWindow(false)}/>
+                                <button
+                                    className={style.closeBtn}
+                                    onClick={() => setWindow(false)}
+                                >
+                                    ✕
+                                </button>
                             </div>
                         </div>
                     )}

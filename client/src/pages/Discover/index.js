@@ -43,6 +43,7 @@ export default function Discover() {
     }, 400);
     return () => clearTimeout(delayDebounce);
   }, [query, dispatch]);
+
   return (
     <ClientLayout>
       <div className={style.wrapperDiv}>
@@ -105,7 +106,7 @@ export default function Discover() {
           setWindow(true);
         }}
       >
-        <img src={data.images[0].path} alt={`media-${i}`} />
+        <img style={{cursor:"pointer"}} src={data.images[0].path} alt={`media-${i}`} />
       </div>
     ))}
 

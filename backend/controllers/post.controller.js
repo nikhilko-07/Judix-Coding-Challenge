@@ -43,23 +43,6 @@ export const createPost = async (req, res) => {
   }
 }
 
-export const getPost = async (req, res) => {
-  try {
-    const getPost = await Post.find({});
-    if (!getPost || getPost.length === 0) {
-      return res.status(404).send({ message: "No post found" });
-    }
-    const pipeline = [];
-    pipeline.push({ $sample: { size: 1 } });
-    const data = await Post.aggregate(pipeline);
-    const postId = data.map((post) => post._id);
-    return res.status(200).send(postId);
-  } catch (err) {
-    console.log(err);
-    return res.status(400).send({ message: "Something went wrong..." });
-  }
-};
-
 export const getRand = async (req, res) => {
   try {
     const { previouslySeenIds = [] } = req.body;
@@ -148,7 +131,7 @@ export const getRandMedia = async (req, res) => {
     // Send response
     return res.status(200).json({
       posts,
-      nextPreviouslySeenMedia: previousSeenMedia, // ✅ use same naming convention
+      nextPreviouslySeenMedia: previousSeenMedia,
     });
   } catch (err) {
     console.error("Error in getRandMedia:", err);
@@ -319,3 +302,6 @@ export const getPostImages = async (req, res)=>{
     return res.status(400).json({ message: "Post not found", err });
   }
 }
+
+
+

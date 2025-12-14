@@ -6,7 +6,7 @@ import {
     profileFetch,
     searchUser, updateProfileData,
     updateProfilePicture,
-    getFollowingList
+    getFollowingList, getOwnSavedPosts
 } from "@/config/redux/action/userAction";
 
 
@@ -29,6 +29,8 @@ const initialState={
     getUserProfileData:null,
     getFollowerListData:{},
     getFollowingListData:{},
+    savedPostsData:{},
+    savedPostsFetched:false,
 }
 const authSlice = createSlice({
     name:"user",
@@ -196,7 +198,22 @@ const authSlice = createSlice({
                     state.isError = false;
                     state.getFollowingListData = action.payload.following;
                 })
-
+                .addCase(getOwnSavedPosts.pending, (state, action)=>{
+                    state.isLoading = true;
+                    state.message = "Knocking the door...";
+                })
+                .addCase(getOwnSavedPosts.rejected, (state, action)=>{
+                    state.isLoading = false;
+                    state.isError = false;
+                    state.message = "Something broken"
+                })
+                .addCase(getOwnSavedPosts.fulfilled, (state, action)=>{
+                    state.isLoading = false;
+                    state.isSuccess = true;
+                    state.isError = false;
+                    state.savedPostsData = action.payload;
+                    state.savedPostsFetched = true;
+                })
         }
 });
 

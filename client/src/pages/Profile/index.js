@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getFollowersList, getFollowingList,
-  getOwnProfile,
+  getOwnProfile, getOwnSavedPosts,
   updateProfileData,
   updateProfilePicture
 } from "@/config/redux/action/userAction";
@@ -17,16 +17,15 @@ import {router} from "next/client";
 export default function Profile() {
   const userState = useSelector((state) => state.auth);
   const postState = useSelector((state) => state.posts);
-  const { savedPostData } = postState;
-  const {getUserProfileData, getFollowerListData, getFollowingListData} = userState;
-
+  const { savedPostsFetched ,savedPostsData} = userState;
+  const { getFollowerListData, getFollowingListData} = userState;
   const dispatch = useDispatch();
 
   const [window, setWindow] = useState(false);
   const [editWindow, setEditWindow] = useState(false);
   const [data, setData] = useState("");
   const [ownPosts, setOwnPosts] = useState(true);
-  const { ownProfileData,ownSavedPosts } = userState || {};
+  const { ownProfileData  } = userState || {};
   const followersCount = ownProfileData?.followers?.length || 0;
   const followingCount = ownProfileData?.following?.length || 0;
   const postCount = ownProfileData?.ownPosts?.length || 0;
@@ -47,13 +46,6 @@ export default function Profile() {
     setBio("");
     setLocation("");
   };
-  // useEffect(() => {
-  //   if (!ownSavedPosts) return;
-  //   if (Array.isArray(ownSavedPosts)) {
-  //     ownSavedPosts.forEach(id => dispatch(getSavedPostInfo(id)));
-  //   }
-  // }, [ownSavedPosts]);
-
   return (
     <ClientLayout>
       <div className={style.mainContainer}>
@@ -130,6 +122,7 @@ export default function Profile() {
               <button onClick={()=> setOwnPosts(true)}>Your posts</button>
               <button onClick={()=>{
                  setOwnPosts(false)
+                dispatch(getOwnSavedPosts())
               }}>Saved posts</button>
             </div>
           </div>
@@ -158,22 +151,30 @@ export default function Profile() {
               <p>No Posts Yet.</p>
             )}
           </div>) : (<div className={style.postContainer}>
+            {savedPostsFetched && savedPostsData.length > 0 ? (
+                savedPostsData.map((post) => {
+                  return (
+                      post.images &&
+                      post.images.length > 0 && (
+                          <img
+                              style={{cursor:"pointer"}}
+                              onClick={() => {
+                                setData(post);
+                                setWindow(true);
+                                dispatch(getPostInfo(post._id))
+                              }}
+                              className={style.postsImage}
+                              key={post._id}
+                              src={post.images[0].path}
+                              alt="post"
+                          />
+                      )
+                  );
+                })
+            ) : (
+                <p>No Posts Yet.</p>
+            )}
 
-            {savedPostData.map((post, i) => (
-                <div key={i} style={{ borderBottom: "1px solid #ddd", padding: 10 }}>
-                  <h1>{post.content}</h1>
-                  {/*<img*/}
-                  {/*            onClick={() => {*/}
-                  {/*              setData(post);*/}
-                  {/*              setWindow(true);*/}
-                  {/*            }}*/}
-                  {/*            className={style.postsImage}*/}
-                  {/*            key={post._id}*/}
-                  {/*            src={post.images[0].path}*/}
-                  {/*            alt="saved post"*/}
-                  {/*        />*/}
-                </div>
-            ))}
           </div>)}
           {window && (
             <div className={style.overlay}>
@@ -247,7 +248,6 @@ export default function Profile() {
                           setFollowWindow(false)
                           setFollowingWindow(false)
                           setFollowersWindow(false)
-                          console.log(item.userId)
                         }} className={style.followersListStyle} key={item.userId}  style={{display: "flex", gap: "10px", marginBottom: "10px", cursor:"pointer"}}>
                           <img
                               src={item.profilePicture}

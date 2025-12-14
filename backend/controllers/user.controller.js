@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import Profile from "../models/profile.model.js";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import e from "express";
+import Post from "../models/post.model.js";
 
 export const getPing  = (req, res)=>{
     try {
@@ -13,12 +13,18 @@ export const getPing  = (req, res)=>{
     }
 }
 
-export const registerUser = async (req, res)=>{
+export const registerUser = async (req, res) => {
     try {
         const {name, email, password} = req.body;
         if(!name || !email || !password){
             return res.status(400).json("Please fill all the fields");
         }
+
+        // Add Gmail domain validation
+        if (!email.endsWith('@gmail.com')) {
+            return res.status(400).json("Only Gmail accounts are allowed");
+        }
+
         const user = await User.findOne({email });
         if(user){
             return res.status(400).json("User already exists");
@@ -30,15 +36,15 @@ export const registerUser = async (req, res)=>{
         const hashedPassword = await bcrypt.hash(password, 12);
         const newUser = new User({
             email,
-            password:hashedPassword,
+            password: hashedPassword,
         })
         await newUser.save();
         const newProfile = new Profile({userId: newUser._id, name:name});
         await newProfile.save();
         return res.status(200).json("User Created Successfully");
 
-    }catch (e){
-        res.status(500).send({"something went wrong":e});
+    } catch (e) {
+        res.status(500).send({"something went wrong": e.message});
         console.log(e);
     }
 }
@@ -84,7 +90,7 @@ export const profileFetched = async (req, res)=>{
 export const getOwnProfile = async (req, res)=>{
     try {
         const user = req.user;
-        const profile = await Profile.findOne({userId: user._id}).populate("ownPosts");
+        const profile = await Profile.findOne({userId: user._id}).populate("ownPosts").select("-savedPosts");
         if(!profile){
             return res.status(400).json("Profile not found");
         }
@@ -94,6 +100,35 @@ export const getOwnProfile = async (req, res)=>{
         res.status(500).send({"something went wrong":e});
     }
 }
+
+export const getOwnSavedPosts = async (req, res) => {
+    try {
+        const user = req.user;
+        const profile = await Profile.findOne({ userId: user._id }).select("savedPosts");
+
+        if (!profile) {
+            return res.status(404).json("Profile not found");
+        }
+
+        if (!profile.savedPosts || profile.savedPosts.length === 0) {
+            return res.status(200).json([]);
+        }
+
+        // ✅ Fix: Use Promise.all for async mapping + correct _id field
+        const posts = await Promise.all(
+            profile.savedPosts.map(postId => Post.findById(postId))
+        );
+
+        const validPosts = posts.filter(post => post !== null);
+
+        return res.status(200).json(validPosts);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+}
+
+
 
 export const searchUser = async(req, res) =>{
     try{

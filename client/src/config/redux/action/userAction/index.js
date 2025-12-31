@@ -238,19 +238,3 @@ export const getOwnSavedPosts = createAsyncThunk(
     }
 )
 
-export const getAllUsers = createAsyncThunk(
-    "user/getAllTheUsers",
-    async (_, thunkAPI) => {
-        try {
-            const raw = localStorage.getItem("token");
-            const token = raw ? raw.replace(/['"]+/g, "") : null;
-            if (!token) return thunkAPI.rejectWithValue("Token not provided...");
-            const response = await clientServer.get("/getAllTheUsers", {
-                headers: {Authorization: `Bearer ${token}`},
-            })
-            return thunkAPI.fulfillWithValue(response.data);
-        }catch (error) {
-            return thunkAPI.rejectWithValue("Something went wrong at getAllTheUsers");
-        }
-    }
-)

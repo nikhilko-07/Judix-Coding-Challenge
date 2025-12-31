@@ -3,6 +3,7 @@ import Profile from "../models/profile.model.js";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import Post from "../models/post.model.js";
+import mongoose from "mongoose";
 
 export const getPing  = (req, res)=>{
     try {
@@ -331,16 +332,3 @@ export const getFollowerList = async (req, res) => {
         return res.status(400).json({ message: "Something went wrong", error: err });
     }
 };
-
-export const getAllUser = async (req, res) => {
-    try {
-        const user = req.user;
-        const profiles = await Profile.find({}).select("-savedPosts -ownPosts -location -bio -following -followers");
-        if (!profiles) {
-            return res.status(404).json({ message: "Profile not found" });
-        }
-        return res.status(200).json(profiles);
-    }catch (err) {
-        return res.status(500).json({ message: "Something went wrong", error: err });
-    }
-}

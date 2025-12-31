@@ -31,8 +31,6 @@ const initialState={
     getFollowingListData:{},
     savedPostsData:{},
     savedPostsFetched:false,
-    getAllUsersList:false,
-    getAllUsersData:{}
 }
 const authSlice = createSlice({
     name:"user",
@@ -216,22 +214,7 @@ const authSlice = createSlice({
                     state.savedPostsData = action.payload;
                     state.savedPostsFetched = true;
                 })
-                .addCase(getAllUsers.pending, (state, action)=>{
-                    state.isLoading = true;
-                    state.message = "Knocking the door...";
-                })
-                .addCase(getAllUsers.rejected, (state, action)=>{
-                    state.isLoading = false;
-                    state.isError = false;
-                    state.message = "Something broken"
-                })
-                .addCase(getAllUsers.fulfilled, (state, action)=>{
-                    state.isLoading = false;
-                    state.isSuccess = true;
-                    state.isError = false;
-                    state.getAllUsersList = true;
-                    state.getAllUsersData = action.payload;
-                })
+
         }
 });
 

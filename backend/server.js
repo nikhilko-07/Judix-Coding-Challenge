@@ -22,7 +22,7 @@ const PORT = 9000;
 
 const db = async ()=>{
     try {
-        await mongoose.connect("mongodb+srv://nikhil:nikhil@ourdb.dykydkn.mongodb.net/?appName=ourDB);
+        await mongoose.connect("mongodb+srv://nikhil:nikhil@ourdb.dykydkn.mongodb.net/?appName=ourDB");
         console.log("Database Connected");
     }catch (err){
         console.log(err);

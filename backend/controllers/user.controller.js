@@ -15,41 +15,60 @@ export const getPing  = (req, res)=>{
 }
 
 export const registerUser = async (req, res) => {
-    try {
-        const {name, email, password} = req.body;
-        if(!name || !email || !password){
-            return res.status(400).json("Please fill all the fields");
-        }
+  try {
+    const { name, email, password } = req.body;
 
-        // Add Gmail domain validation
-        if (!email.endsWith('@gmail.com')) {
-            return res.status(400).json("Only Gmail accounts are allowed");
-        }
-
-        const user = await User.findOne({email });
-        if(user){
-            return res.status(400).json("User already exists");
-        }
-        const existingUserName = await User.findOne({name});
-        if(existingUserName){
-            return res.status(400).json("UserName already exists");
-        }
-        const hashedPassword = await bcrypt.hash(password, 12);
-        const newUser = new User({
-            email,
-            password: hashedPassword,
-        })
-        await newUser.save();
-        const newProfile = new Profile({userId: newUser._id, name:name});
-        await newProfile.save();
-        return res.status(200).json("User Created Successfully");
-
-    } catch (e) {
-        res.status(500).send({"something went wrong": e.message});
-        console.log(e);
+    if (!name || !email || !password) {
+      return res.status(400).json("Please fill all the fields");
     }
-}
 
+    // Gmail validation
+    if (!email.endsWith("@gmail.com")) {
+      return res.status(400).json("Only Gmail accounts are allowed");
+    }
+
+    // Password strength validation
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+    if (!strongPasswordRegex.test(password)) {
+      return res.status(400).json(
+        "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character"
+      );
+    }
+
+    // Check email uniqueness
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json("User already exists");
+    }
+
+    // Check username uniqueness
+    const existingUserName = await User.findOne({ name });
+    if (existingUserName) {
+      return res.status(400).json("Username already exists");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const newUser = new User({
+      email,
+      password: hashedPassword,
+    });
+    await newUser.save();
+
+    const newProfile = new Profile({
+      userId: newUser._id,
+      name: name,
+    });
+    await newProfile.save();
+
+    return res.status(201).json("User created successfully");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Something went wrong");
+  }
+};
 export const loginUser = async (req, res)=>{
     try {
         const {email, password} = req.body;

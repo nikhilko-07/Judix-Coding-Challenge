@@ -4,6 +4,7 @@
     font-family: "Permanent Marker", cursive;
     color: rgb(56, 56, 56);
     box-sizing: border-box;
+    display: flex;
 }
 .Querywrapper{
     box-shadow: 2px 0 10px gray;
@@ -45,4 +46,31 @@
     height: 50px;
     border-radius: 50%;
     object-fit: fill;
+}
+.messageContainer{
+    width: 75%;
+}
+.userMessageHeader{
+    padding: 0.5rem;
+    border: 1px solid gray;
+    height: 10%;
+    align-items: center;
+    display: flex;
+    box-shadow:  0 0 10px gray;
+}
+.userDetails{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: start;
+    padding-left: 0.5rem;
+}
+.userDetails img {
+    width: 10%;
+    object-fit: fill;
+    border-radius: 50%;
+    height: 20%;
+}
+.chatsContainer{
+    padding: 0.5rem;
 }

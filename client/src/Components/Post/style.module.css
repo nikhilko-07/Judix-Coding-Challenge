@@ -1,160 +1,350 @@
-.postHeader{
+/* ================= POST MODAL ================= */
+.modal {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 15px;
+  max-width: 95%;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center content */
+  gap: 1rem;
+  position: relative;
+}
+
+/* POST HEADER */
+.postHeader {
   display: flex;
   justify-content: space-between;
-  padding-top: 1rem;
+  width: 100%;
+  padding-bottom: 0.5rem;
 }
-.postHeader button{
+.postHeader button {
   border: none;
   background: transparent;
   color: red;
-  width: 10%;
-  height: 30px;
-  border-radius: 10px;
-  transition: 0.3s ease-out, 0.3s ease-out;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
-.postHeader button:hover{
-  transform: scale(110%);
+.postHeader button:hover {
   background-color: rgb(255, 103, 103);
   color: white;
+  border-radius: 10px;
+  transform: scale(1.1);
+}
 
+/* POST IMAGE */
+.carousel img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
 }
-.postIcons{
-    padding: 10px;
+
+/* POST ICONS */
+.postIcons {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   gap: 10px;
+  flex-wrap: wrap;
 }
+
 .postIcons button {
-  width: 70%;
+  flex: 1 1 calc(25% - 8px); /* 4 buttons in a row with spacing */
   height: 50px;
   font-size: 1.2rem;
   border: none;
-  outline: none;
-  background-color: #ededed;
-  transition: 0.3s ease-out, 0.3s ease-out;
   border-radius: 10px;
-  margin-right: 1%;
-}
-.likeBtn{
-  color: red;
+  background-color: #ededed;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  transition: 0.3s ease-out, 0.3s ease-out;
-}
-.likeBtn:hover {
-  background-color: rgb(255, 100, 100);
-  color: white;
-  transform: scale(110%);
-}
-.sendBtn{
-    color: blue;
-      transition: 0.3s ease-out, 0.3s ease-out;
-}
-.saveBtn{
-    color: cyan;
-          transition: 0.3s ease-out, 0.3s ease-out;
-
-}
-.saveBtn:hover{
-      background-color: cyan;
-    color: white;
-  transform: scale(110%);
-}
-.sendBtn:hover{
-    background-color: blue;
-    color: white;
-  transform: scale(110%);
-}
-.deleteBtn{
-  background-color: transparent;
-  color: red;
-  border: none;
-  transition: 0.3s ease-out, 0.3s ease-out;
   cursor: pointer;
-}
-.deleteBtn:hover{
-  transform: scale(110%);
-}
-.createContainer {
-  padding: 10px;
-  display: flex;
-  gap: 10px;
-}
-.createContainer input {
-  width: 70%;
-  height: 50px;
-  padding-left: 10px;
-  font-size: 1.2rem;
-  border: none;
-  outline: none;
-  background-color: #ededed;
-  transition: 0.3s ease-out, 0.3s ease-out;
-  border-radius: 10px;
-  margin-right: 1%;
-}
-.createContainer input:hover {
-  transform: scale(105%);
-}
-.createContainer button {
-  width: 20%;
-  border: none;
-  outline: none;
-  background-color: #ededed;
-  border-radius: 10px;
-  cursor: pointer;
-}
-.cmtBtn {
-  color: rgb(0, 161, 0);
-  transition: 0.3s ease-out, 0.3s ease-out;
-}
-.cmtBtn:hover {
-  background-color: rgb(76, 202, 44);
-  color: white;
-  transform: scale(110%);
-}
-.closeBtn {
-  color: red;
-  transition: 0.3s ease-out, 0.3s ease-out;
-}
-.closeBtn:hover {
-  background-color: rgb(255, 100, 100);
-  color: white;
-  transform: scale(110%);
+  transition: 0.3s ease;
 }
 
+/* BUTTON COLORS */
+.likeBtn { color: red; }
+.likeBtn:hover { background-color: rgb(255,100,100); color: white; transform: scale(1.1); }
+
+.sendBtn { color: blue; }
+.sendBtn:hover { background-color: blue; color: white; transform: scale(1.1); }
+
+.saveBtn { color: cyan; }
+.saveBtn:hover { background-color: cyan; color: white; transform: scale(1.1); }
+
+.cmtBtn { color: rgb(0,161,0); }
+.cmtBtn:hover { background-color: rgb(76,202,44); color: white; transform: scale(1.1); }
+
+/* COMMENTS */
 .cmtContainer {
-  max-height: 250px;
+  width: 100%;
+  max-height: 200px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 5px 0;
 }
+
 .comment {
-  height: 100%;
   display: flex;
   gap: 10px;
-  align-items: center;
-  place-items: start;
+  align-items: flex-start;
   background-color: #ededed;
   border-radius: 10px;
   padding: 5px;
-  margin-bottom: 0.2%;
+  word-break: break-word;
 }
-.userInfo{
-  width: 100%;
+
+.profilePicture img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
 }
+
+.userInfo { flex: 1; }
 .commentBody {
+  font-size: 0.95rem;
+  line-height: 1.3;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* CREATE COMMENT */
+.createContainer {
   width: 100%;
-  background-color: #EDEDED;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.createContainer input {
+  flex: 1;
+  min-width: 120px;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 1rem;
+  border-radius: 10px;
   border: none;
   outline: none;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  word-break: break-word;
-  white-space: pre-wrap;
-  padding-right: 4%;
-  margin: 0;
+  background-color: #ededed;
 }
+
+.createContainer button {
+  width: 60px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+/* CLOSE BUTTON */
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: red;
+}
+.closeBtn:hover {
+  background-color: rgb(255,100,100);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .carousel img { max-width: 100%; height: auto; }
+  .postIcons button { flex: 1 1 45%; font-size: 1rem; }
+  .createContainer input { width: 100%; }
+  .createContainer button { width: 48%; }
+}
+/* ================= POST MODAL ================= */
+.modal {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 15px;
+  max-width: 95%;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center content */
+  gap: 1rem;
+  position: relative;
+}
+
+/* POST HEADER */
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+.postHeader button {
+  border: none;
+  background: transparent;
+  color: red;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.postHeader button:hover {
+  background-color: rgb(255, 103, 103);
+  color: white;
+  border-radius: 10px;
+  transform: scale(1.1);
+}
+
+/* POST IMAGE */
+.carousel img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* POST ICONS */
+.postIcons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.postIcons button {
+  flex: 1 1 calc(25% - 8px); /* 4 buttons in a row with spacing */
+  height: 50px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #ededed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* BUTTON COLORS */
+.likeBtn { color: red; }
+.likeBtn:hover { background-color: rgb(255,100,100); color: white; transform: scale(1.1); }
+
+.sendBtn { color: blue; }
+.sendBtn:hover { background-color: blue; color: white; transform: scale(1.1); }
+
+.saveBtn { color: cyan; }
+.saveBtn:hover { background-color: cyan; color: white; transform: scale(1.1); }
+
+.cmtBtn { color: rgb(0,161,0); }
+.cmtBtn:hover { background-color: rgb(76,202,44); color: white; transform: scale(1.1); }
+
+/* COMMENTS */
+.cmtContainer {
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 5px 0;
+}
+
+.comment {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background-color: #ededed;
+  border-radius: 10px;
+  padding: 5px;
+  word-break: break-word;
+}
+
 .profilePicture img {
-  height: 45px;
   width: 45px;
+  height: 45px;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.userInfo { flex: 1; }
+.commentBody {
+  font-size: 0.95rem;
+  line-height: 1.3;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* CREATE COMMENT */
+.createContainer {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.createContainer input {
+  flex: 1;
+  min-width: 120px;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #ededed;
+}
+
+.createContainer button {
+  width: 60px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+/* CLOSE BUTTON */
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: red;
+}
+.closeBtn:hover {
+  background-color: rgb(255,100,100);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .carousel img { max-width: 100%; height: auto; }
+  .postIcons button { flex: 1 1 45%; font-size: 1rem; }
+  .createContainer input { width: 100%; }
+  .createContainer button { width: 48%; }
 }

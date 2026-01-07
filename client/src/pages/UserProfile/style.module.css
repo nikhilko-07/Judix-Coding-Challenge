@@ -1,160 +1,230 @@
-.mainContainer{
-    background-color: #EDEDED;
-
-    height: 100%;
+/* ================= ROOT ================= */
+.mainContainer {
+    min-height: 100vh;
     width: 100%;
+    background-color: #ededed;
     font-family: "Permanent Marker", cursive;
     display: flex;
-    align-items: center;
     justify-content: center;
+    padding: 1rem 0;
+    box-sizing: border-box;
 }
-.wrapperDiv{
+
+.wrapperDiv {
     background-color: white;
-    height: 100%;
-    width: 60%;
-    padding: 2rem;
+    width: 100%;
+    max-width: 1100px;
+    padding: 1.5rem;
+    box-sizing: border-box;
 }
-.UserContainer{
-    display: grid;
-    align-items: center;
-    justify-content: center;
+
+/* ================= PROFILE HEADER ================= */
+.UserContainer {
+    width: 100%;
 }
-.userProfileContainer{
+
+.userProfileContainer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    gap: 2rem;
 }
-.userName{
+
+.userProfilePic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ================= USER INFO ================= */
+.userInfoContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.userName {
     font-size: 2rem;
     font-weight: bold;
     color: #383838;
 }
-.followBtn{
+
+/* ================= FOLLOW STATS ================= */
+.followBtn {
     display: flex;
-    gap: 1rem;
-    font-size: 15px;
-}
-.followBtn button{
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
-    background-color: transparent;
-}
-.userProfilePic{
-    border-radius: 50%;
-    height: 150px;
-    width:  150px;
-    object-fit: cover;
+    gap: 1.2rem;
+    margin: 0.6rem 0;
 }
 
-.btnContainer{
-    display: flex;
-    align-items: center;
-    justify-content:center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-.btnContainer button{
-    cursor: pointer;
-    font-family: "Permanent Marker", cursive;
-    height: 35px;
-    width: 10vw;
-    border-radius: 10px;
+.followBtn span,
+.followBtn button {
+    font-size: 0.95rem;
+    background: none;
     border: none;
-    color: white;
-    font-size: 1rem;
-    background: linear-gradient(to right, #6865FE, #9E32FB);
-}
-.postContainer {
-    display: grid;
-    border-top: 1px solid gray;
-    padding-top: 10px;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    justify-items: center;
-    align-items: start;
-    box-sizing: border-box;
-    gap: 1rem;
-    height: 100%;
-}
-.postImage{
-    width:  250px;
     cursor: pointer;
-    height: 250px;
-    border-radius: 25px;
-    object-fit: cover;
+    color: #444;
 }
-.followPersonContainer{
-    overflow-y: scroll;
+
+/* ================= ACTION BUTTONS ================= */
+.btnContainer {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.8rem;
     width: 100%;
-    height: 250px;
+    max-width: 420px;
 }
 
-.followersListStyle{
-    display: flex;
-    gap: 1rem;
-    height: 50px;
-    align-items: center;
-    justify-content: start;
-}
-.listheader{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px;
-}
-.listCloseBtn{
+.btnContainer button {
+    flex: 1;
+    height: 36px;
+    border-radius: 8px;
     border: none;
-    background: transparent;
-    color: red;
     cursor: pointer;
-    font-size: 15px;
-    transition: 0.2s ease-in-out;
-}
-.listCloseBtn:hover{
-    font-size: 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: white;
+    background: linear-gradient(to right, #6865fe, #9e32fb);
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Full-screen blur overlay */
+.btnContainer button:hover {
+    transform: scale(1.03);
+    opacity: 0.9;
+}
+
+/* ================= POSTS GRID ================= */
+.postContainer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.postImage {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* ================= FOLLOW LIST MODAL ================= */
+.followPersonContainer {
+    overflow-y: auto;
+    height: 230px;
+}
+
+.followersListStyle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+/* ================= POST MODAL ================= */
 .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(2px); /* background blur */
-    background: rgba(0, 0, 0, 0.3); /* dim background slightly */
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(2px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999; /* above everything else */
+    z-index: 999;
 }
 
-/* Center modal box */
 .modal {
     background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    width: 95%;
+    max-width: 650px;
+    padding: 1.2rem;
+    border-radius: 14px;
     position: relative;
-    animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Close button */
 .closeBtn {
     position: absolute;
     top: 10px;
-    right: 15px;
+    right: 12px;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     cursor: pointer;
-    color: #333;
-    transition: 0.2s;
 }
 
 .closeBtn:hover {
     color: red;
     transform: scale(1.2);
+}
+
+/* ================= FOLLOW LIST HEADER ================= */
+.listheader {
+    text-align: center;
+    font-weight: bold;
+}
+
+.listCloseBtn {
+    border: none;
+    background: none;
+    color: red;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 992px) {
+    .wrapperDiv {
+        padding: 1rem;
+    }
+
+    .userProfileContainer {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .postContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .wrapperDiv{
+        padding-top: 5rem;
+    }
+    .userProfilePic {
+        width: 120px;
+        height: 120px;
+    }
+
+    .userProfileContainer {
+        gap: 1rem;
+    }
+
+    .userName {
+        font-size: 1.6rem;
+    }
+
+    .followBtn {
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .btnContainer {
+        flex-direction: row; /* KEEP INLINE */
+        width: 100%;
+    }
+
+    .btnContainer button {
+        flex: 1;
+    }
+
+    .postContainer {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
 }

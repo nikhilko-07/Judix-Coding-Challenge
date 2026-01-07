@@ -1,28 +1,35 @@
+/* ================= WRAPPER ================= */
 .storiesWrapper {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-family: "Permanent Marker", cursive;
 }
-.scrollBtn1 {
+
+/* ================= SCROLL BUTTONS ================= */
+.scrollBtn1, .scrollBtn2 {
     border: none;
     background: rgba(0, 0, 0, 0.6);
     color: #fff;
     width: 32px;
     height: 32px;
-    position: absolute;
-    left: 0;                  /* stick to left edge of wrapper */
-    top: 50%;
-    transform: translateY(-50%);
     border-radius: 50%;
-    z-index: 100;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
 }
 
+.scrollBtn1 { left: 0; }
+.scrollBtn2 { right: 0; }
+
+/* ================= STORIES CONTAINER ================= */
 .storiesContainer {
     display: flex;
     width: 100%;
@@ -33,216 +40,25 @@
     scrollbar-width: none;     /* Firefox */
     margin-bottom: 2rem;
 }
-.storiesRow{
+
+.storiesContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.storiesRow {
     display: flex;
     gap: 0.5rem;
 }
 
+/* ================= ADD STORY ================= */
 .addStory {
     position: relative;
-    overflow: hidden;
-    border-radius: 12px;
     width: 100px;
     height: 150px;
+    border-radius: 12px;
+    overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-}
-.addStoryOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-.usersStory {
-    height: 100%;
-    width: 100px;
-    display: flex;
-    position: relative;
-    overflow: hidden;
-}
-.scrollBtn2 {
-    border: none;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    position: absolute;
-    right: 0;                 /* stick to right edge of wrapper */
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    z-index: 100;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-}
-.addStoryContainer {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(4px);
-}
-.modal {
-    position: relative;
-}
-
-.closeBtn {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    height: 30px;
-    width: 30px;
-    border-radius: 999px;
-    background-color: white;
-    color: red;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease, transform 0.15s ease;
-    cursor: pointer;
-    border: 1px solid #818181;
-}
-
-.closeBtn:hover {
-    background-color: red;
-    color: white;
-    transform: scale(1.3);
-}
-.storyaddbtnContainer {
-    background: white;
-    border-radius: 18px;
-    padding: 1.7rem 1.9rem;
-    max-width: 420px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-    position: relative;
-    animation: slideIn 0.25s ease-out;
-    border: 1px solid #1f2937;
-}
-.addStoryheader {
-    margin: 0 0 1rem 0;
-    font-size: 1.05rem;
-    font-weight: 600;
-    text-align: center;
-    color: #383838;
-}
-.fileLabel {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    cursor: pointer;
-    font-size: 0.85rem;
-    color: #9ca3af;
-}
-.fileBadge {
-    padding: 0.4rem 0.9rem;
-    border-radius: 999px;
-    background-color: #111827;
-    border: 1px solid #374151;
-    font-size: 0.8rem;
-}
-.fileInput {
-    display: none;
-}
-.storyFileName {
-    margin: 0.75rem 0 0.5rem 0;
-    font-size: 0.8rem;
-    color: #9ca3af;
-    text-align: left;
-    word-break: break-all;
-}
-.uploadStoryBtn {
-    margin-top: 0.75rem;
-    border: none;
-    color: #f9fafb;
-    background: linear-gradient(135deg, #6B62FE, #9C35FB);
-    height: 36px;
-    display: inline-flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1.4rem;
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
-    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.5);
-    align-self: flex-end;
-}
-
-.uploadStoryBtn:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 16px 40px rgba(79, 70, 229, 0.6);
-}
-
-.uploadStoryBtn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-.usersStoryContainer{
-    position: fixed;  /* Changed from absolute */
-    top: 0;
-    left: 0;
-    width: 100%;     /* Full viewport width */
-    height: 100%;    /* Full viewport height */
-    background: rgba(0, 0, 0, 0.8);  /* Dark overlay */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-.userStoryArray {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 400px;
-    height: 700px;
-    position: relative; /* for absolute buttons */
-}
-.navBtn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1100;
-}
-
-.navLeft {
-    left: 8px;
-}
-
-.navRight {
-    right: 8px;
-}
-.userStoryImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 2%;
 }
 
 .addStory img {
@@ -253,12 +69,23 @@
     transition: all 0.4s ease-in-out;
 }
 
-
 .addStory:hover img {
     filter: blur(3px) brightness(0.7);
     transform: scale(1.1);
 }
 
+.addStoryOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Add '+' hover effect */
 .addStory::before {
     content: '';
     position: absolute;
@@ -279,8 +106,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2.8rem;
-    font-weight: 300;
+    font-size: 2.2rem;
+    font-weight: 600;
     color: #333;
     opacity: 0;
     transition: all 0.3s ease-in-out;
@@ -290,85 +117,168 @@
 .addStory:hover::before {
     transform: translate(-50%, -50%) scale(1);
 }
-
 .addStory:hover::after {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.1);
 }
-
 .addStory:hover .addStoryOverlay {
     opacity: 1;
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(18px) scale(0.97);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+/* ================= USERS STORIES ================= */
+.usersStory {
+    width: 100px;
+    height: 150px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
 }
-
-
 
 .usersStory img {
-    border-radius: 12px;
+    width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
-    cursor: pointer;
-    width: 100%;
+    border-radius: 12px;
 }
 
-
-
-.storiesWrapper {
-    position: relative;       /* important for absolute children */
+/* ================= STORY MODAL ================= */
+.usersStoryContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
     display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.userStoryArray {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-.storiesContainer::-webkit-scrollbar {
-    display: none;             /* Chrome/Safari */
+.userStoryImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
+.navBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+.navLeft { left: 8px; }
+.navRight { right: 8px; }
 
+.closeStory {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: white;
+    color: red;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 1100;
+    transition: all 0.2s ease;
+}
+.closeStory:hover {
+    transform: scale(1.3);
+    background-color: red;
+    color: white;
+}
 
-.fileInput {
-    display: none;
+/* ================= ADD STORY MODAL ================= */
+.addStoryContainer {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.storyaddbtnContainer {
+    background: white;
+    border-radius: 18px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+}
+
+.addStoryheader {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .fileLabel {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     cursor: pointer;
     font-size: 0.85rem;
     color: #9ca3af;
 }
 
 .fileBadge {
-    padding: 0.4rem 0.9rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 999px;
     background-color: #111827;
     border: 1px solid #374151;
     font-size: 0.8rem;
 }
-.closeStory{
-    border-radius: 100%;
-    height: 30px;
-    width:  30px;
+
+.uploadStoryBtn {
+    margin-top: 1rem;
+    width: 100%;
+    height: 36px;
     border: none;
-    margin-bottom: 0.5rem;
-    background-color: white;
-    color: red;
+    border-radius: 999px;
+    background: linear-gradient(135deg,#6B62FE,#9C35FB);
+    color: #f9fafb;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    font-weight: 600;
 }
-.closeStory:hover {
-    transform: scale(1.3);
-    background-color: red;
-    color: white;
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .addStory, .usersStory { width: 80px; height: 120px; }
+    .userStoryArray { height: 60vh; max-width: 90%; }
+    .userStoryImg { border-radius: 6px; }
+    .storiesWrapper { gap: 0.3rem; }
+    .scrollBtn1, .scrollBtn2 { width: 28px; height: 28px; font-size: 0.85rem; }
 }

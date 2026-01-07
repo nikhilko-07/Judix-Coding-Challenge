@@ -1,94 +1,131 @@
-.mainContainer{
-    overflow: hidden;
+.mainContainer {
     height: 100vh;
     width: 15%;
-    box-shadow: 1px 1px 5px 0 gray;
     position: sticky;
     top: 0;
     left: 0;
+    box-shadow: 1px 1px 5px gray;
+    display: flex;
+    flex-direction: column;
+    background: white;
+
 }
-.startDiv{
+
+.startDiv {
     height: 10%;
     border-bottom: 0.5px solid lightgray;
-}
-.logo{
-    width: 50%;
-    height: 100%;
     display: flex;
-    object-fit: cover;
     align-items: center;
     justify-content: center;
-    place-items: center;
 }
-.midDiv{
+
+.logo {
+    width: 60%;
+    height: auto;
+}
+
+.midDiv {
     height: 80%;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-
     padding-top: 3rem;
+    gap: 0.5rem;
 }
+
 .btn {
-    color: gray;
     width: 80%;
     display: flex;
-    gap: 1rem;
-    padding-left: 0.5rem;
-    height: 6%;
     align-items: center;
-    cursor: pointer;
+    gap: 1rem;
+    height: 44px;
+    padding-left: 0.8rem;
     border: none;
-    background-color: white;
+    background: white;
     font-weight: bold;
+    cursor: pointer;
     border-radius: 0.5rem;
+    color: gray;
 }
 
-.btn:hover {
-    color: #4a43b0;
-    background-color: #EDF2FF;
-}
-
+.btn:hover,
 .activeBtn {
+    background-color: #edf2ff;
     color: #4a43b0;
-    background-color: #EDF2FF;
-    border-radius: 0.5rem;
 }
 
 .createPost {
-    color: white;                /* Text color */
-    border-radius: 0.5rem;         /* More rounded */
-    font-weight: bold;           /* Bolder text */
-    box-shadow: 0 2px 8px rgba(74,67,176,0.15); /* Subtle shadow */
-    transition: background 0.2s;
     margin-top: 2rem;
-    background: linear-gradient(to right, #6865FE, #9E32FB);
     justify-content: center;
+    background: linear-gradient(to right, #6865fe, #9e32fb);
+    color: white;
 }
 
 .createPost:hover {
-    background-color: #372f7c;
-    color: white;
-    box-shadow: 0 4px 12px rgba(74,67,176,0.20);
+    background: linear-gradient(to right, #5a56e0, #8626e0);
 }
 
-.endDiv{
+.endDiv {
     height: 10%;
-    overflow: hidden;
-    display: flex;
-    text-align: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    align-items: center;
-    gap: 10%;
     border-top: 0.5px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
 }
-.endDiv button{
-    color: gray;
-    font-size: 1px;
+
+.logOutBtn {
     border: none;
-    background-color: white;
-}
-.logOutBtn{
+    background: none;
     cursor: pointer;
+    color: gray;
+}
+
+/* ===================== */
+/* MOBILE & TABLET VIEW */
+/* ===================== */
+@media (max-width: 768px) {
+    .mainContainer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 64px;
+        width: 100%;
+        flex-direction: row;
+        z-index: 1000;
+        box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .startDiv,
+    .endDiv {
+        display: none;
+    }
+
+    .midDiv {
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        justify-content: space-around;
+    }
+
+    .btn {
+        width: 15%;
+        height: 70%;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+        padding: 0;
+        font-size: 0.7rem;
+    }
+
+    @media (max-width: 768px) {
+        .label {
+            display: none;
+        }
+    }
+    .createPost {
+        margin: 0;
+        color: #4a43b0;
+    }
 }

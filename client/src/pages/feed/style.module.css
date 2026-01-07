@@ -12,3 +12,39 @@
     /*border: 2px solid purple;*/
     height: 100%;
 }
+@media (max-width: 768px) {
+    .wrapperDiv{
+        padding: 2rem;
+        width: 100vw;
+    }
+    .storiesContainer{
+        padding-top: 3rem;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

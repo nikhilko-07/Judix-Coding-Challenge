@@ -80,3 +80,23 @@
     font-style: normal;
     display: flex;
 }
+@media (max-width: 768px) {
+
+    .wrapperDiv {
+        width: 100%;
+        padding: 0.5rem;
+    }
+    .carousel img {
+        max-height: 300px;
+    }
+    .userContainer p {
+        font-size: 0.8rem;
+    }
+    .btnContainer button {
+        font-size: 0.9rem;
+        padding: 8px 0;
+    }
+    .content {
+        font-size: 0.85rem;
+    }
+}

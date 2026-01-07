@@ -1,106 +1,150 @@
+/* ================= WRAPPER ================= */
 .wrapperDiv {
-  font-family: "Permanent Marker", cursive;
+  min-height: 100vh;
   width: 100%;
-  display: grid;
-  place-items: center;
-  box-sizing: border-box;
   background-color: #ededed;
-  height: 100%;
-}
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 per row */
-  width: 100%;
-  place-items: center;
-  padding-top: 10px;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  padding: 1.5rem 0;
   box-sizing: border-box;
-  gap: 10px;
+  font-family: "Permanent Marker", cursive;
 }
-.imageDiv {
-  margin: 0; /* ✅ remove any default margin */
-  padding: 0;
-}
-.imageDiv img {
-  border: 1px solid black;
-  width:  210px;
-  height: 210px;
-  object-fit: cover;
-  display: block;
-}
+
+/* ================= SEARCH ================= */
 .queryContainer {
-  width: 60%;
-  display: grid;
-  place-items: start;
-  height: 10vh;
+  width: 90%;
+  max-width: 1100px;
+  position: relative;
+  margin-bottom: 1.5rem;
 }
+
 .queryContainer input {
   width: 100%;
-  height: 100%;
-  border: none;
-  margin-top: 2%;
+  padding: 0.9rem 1rem;
   border-radius: 10px;
-  padding-left: 2.5%;
-  font-size: large;
-  font-family: "Permanent Marker", cursive;
+  border: none;
   outline: none;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
+
+/* SEARCH RESULTS */
+.searchBox {
+  background: white;
+  border-radius: 10px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
 .usersFetch {
-  position: relative;
-  z-index: 100;
-  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: start;
   gap: 10px;
-  padding: 10px 20px;
+  padding: 10px 14px;
+  cursor: pointer;
   border-bottom: 1px solid #eee;
-  background-color: white;
 }
+
+.usersFetch:hover {
+  background-color: #f3f3f3;
+}
+
 .usersFetch img {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
 }
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+
+.noUser {
+  padding: 10px;
+  color: gray;
+}
+
+/* ================= GRID ================= */
+.cards {
+  width: 90%;
+  max-width: 1100px;
+  background-color: #cfcfcf; /* change to transparent later */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+/* PERFECT SQUARE */
+.imageDiv {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #bbb;
+}
+
+.imageDiv img {
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(2px); /* background blur */
-  background: rgba(0, 0, 0, 0.3); /* dim background slightly */
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.imageDiv img:hover {
+  transform: scale(1.05);
+}
+
+/* ================= MODAL ================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* above everything else */
+  z-index: 999;
 }
 
-/* Center modal box */
 .modal {
   background: white;
-  padding: 2rem;
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  width: 95%;
+  max-width: 650px;
+  padding: 1.2rem;
+  border-radius: 14px;
   position: relative;
-  animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Close button */
 .closeBtn {
   position: absolute;
   top: 10px;
-  right: 15px;
-  background: none;
+  right: 12px;
+  font-size: 1.4rem;
   border: none;
-  font-size: 1.5rem;
+  background: none;
   cursor: pointer;
-  color: #333;
-  transition: 0.2s;
 }
 
 .closeBtn:hover {
   color: red;
-  transform: scale(1.2);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 576px) {
+  .queryContainer{
+    padding-top: 3rem;
+  }
+  .imageDiv {
+    height: 100px;
+    width:  100px;
+
+  }
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+    margin-left: -25%;
+    width: 100vw;
+    /*padding: 10px;*/
+    gap: 8px;
+  }
 }

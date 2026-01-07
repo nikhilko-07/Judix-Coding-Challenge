@@ -1,191 +1,227 @@
-
+/* ================= ROOT ================= */
 .mainContainer {
     font-family: "Permanent Marker", cursive;
-    color: rgb(56, 56, 56);
+    color: #383838;
     background-color: #EDEDED;
     width: 100%;
+    min-height: 100vh;
     display: flex;
-    height: 100%;
     justify-content: center;
     box-sizing: border-box;
+    padding: 1rem;
+    overflow-x: hidden; /* prevent horizontal scroll */
 }
 
+/* ================= WRAPPER ================= */
 .wrapperDiv {
-    width: 60%;
-    height: 100%;
-    border-radius: 10px;
+    width: 100%;
+    max-width: 900px;
     background-color: white;
     padding: 2rem;
+    border-radius: 12px;
     box-sizing: border-box;
-    overflow: visible;
 }
 
-.imageContainer{
-    width: 20%;
+/* ================= PROFILE HEADER ================= */
+.userInfoDiv {
     display: flex;
     align-items: center;
-    justify-content: end;
+    gap: 1rem;
+    flex-wrap: wrap; /* allow wrap on very small screens */
 }
-.imageContainer img{
-    width:  125;
-    height: 125;
+
+/* LEFT IMAGE */
+.imageContainer {
+    flex-shrink: 0;
 }
+
 .profilePicture {
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border-radius: 50%;
-    z-index: 110;
-    left: 20px;
-}
-.infoContainer{
-    height: 100%;
 }
 
-.userInfoDiv{
+/* RIGHT INFO */
+.infoContainer {
     display: flex;
-    place-items: center;
+    flex-direction: column;
     justify-content: center;
+    flex: 1;
+    min-width: 0; /* important for text to shrink on small screens */
+}
+
+.infoContainer h1 {
+    font-size: 1.2rem;
+    word-break: break-word;
+}
+
+/* ================= TEXT ================= */
+.bio {
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.details {
+    font-size: 11px;
+    display: flex;
+    gap: 0.5rem;
     align-items: center;
-    gap: 10px;
+    flex-wrap: wrap;
 }
-.bio{
-    font-size: 12.5px;
-}
-.details{
-    font-size: 10px;
-}
-.btnContainer{
+
+/* ================= BUTTONS ================= */
+.btnContainer {
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content:center;
-    gap: 1rem;
-    padding: 1rem;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    flex-wrap: nowrap;   /* keep one line */
+    overflow-x: auto;    /* scroll if too wide */
 }
-.btnContainer button{
+
+.btnContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.btnContainer button {
     cursor: pointer;
     font-family: "Permanent Marker", cursive;
     height: 40px;
-    width: 15vw;
+    min-width: 120px;
     border-radius: 10px;
     border: none;
     color: white;
-    font-size: 1rem;
+    font-size: 0.9rem;
     background: linear-gradient(to right, #6865FE, #9E32FB);
-}
-.postsImage {
-    width:  250px;
-    height: 250px;
-    border-radius: 25px;
-    object-fit: cover;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
+/* ================= POSTS GRID ================= */
 .postContainer {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.5rem;
     border-top: 1px solid gray;
-    padding-top: 10px;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    justify-items: center;
-    align-items: start;
-    box-sizing: border-box;
-    gap: 1rem;
-}
-/* Full-screen blur overlay */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(2px); /* background blur */
-  background: rgba(0, 0, 0, 0.3); /* dim background slightly */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999; /* above everything else */
+    padding-top: 1rem;
 }
 
-/* Center modal box */
-.modal {
-  background: white;
-  padding: 2rem;
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-  position: relative;
-  animation: fadeIn 0.2s ease-in-out;
-}
-
-/* Close button */
-.closeBtn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #333;
-  transition: 0.2s;
-}
-
-.closeBtn:hover {
-  color: red;
-  transform: scale(1.2);
-}
-.editContainer{
-    width: 300px;
-    height: 200px;
-}
-.editContainer input{
+.postsImage {
     width: 100%;
-    margin-top: 2.5%;
-    padding-left: 5%;
-    outline: none;
-    height: 45px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* ================= MODAL ================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    max-width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+/* ================= EDIT PROFILE ================= */
+.editContainer {
+    width: 100%;
+    max-width: 350px;
+}
+
+.editContainer input {
+    width: 100%;
+    margin-top: 0.7rem;
+    padding-left: 1rem;
+    height: 42px;
     background-color: #EDEDED;
     border-radius: 10px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     border: none;
+    outline: none;
 }
 
-/* Smooth entry animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-.followPersonContainer{
-    overflow-y: scroll;
-    width: 100%;
-    height: 250px;
+/* ================= FOLLOW LIST ================= */
+.followPersonContainer {
+    overflow-y: auto;
+    max-height: 250px;
 }
 
-.followersListStyle{
+.followersListStyle {
     display: flex;
+    align-items: center;
     gap: 1rem;
-    height: 50px;
-    align-items: center;
-    justify-content: start;
-}
-.listheader{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px;
-}
-.listCloseBtn{
-    border: none;
-    background: transparent;
-    color: red;
     cursor: pointer;
-    font-size: 15px;
-    transition: 0.2s ease-in-out;
 }
-.listCloseBtn:hover{
-    font-size: 20px;
+
+/* ================= MOBILE & TABLET ================= */
+@media (max-width: 768px) {
+    .mainContainer {
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    .wrapperDiv {
+        padding-top: 5rem;
+    }
+
+    .userInfoDiv {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .profilePicture {
+        width: 80px;
+        height: 80px;
+    }
+
+    .infoContainer {
+        align-items: center;
+    }
+
+    .infoContainer h1 {
+        font-size: 1rem;
+    }
+
+    .btnContainer {
+        justify-content: flex-start;
+        overflow-x: auto;
+        gap: 0.5rem;
+    }
+
+    .btnContainer button {
+        min-width: 100px;
+        font-size: 0.8rem;
+    }
+
+    .postContainer {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 0.5rem;
+    }
 }
